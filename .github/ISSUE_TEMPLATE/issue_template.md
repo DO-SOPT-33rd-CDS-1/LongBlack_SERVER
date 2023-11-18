@@ -1,18 +1,9 @@
 ---
-name: ISSUE_TEMPLATE_민철
-about: ISSUE_TEMPLATE_민철
+name: ISSUE_TEMPLATE
+about: ISSUE_TEMPLATE
 title: ''
 labels: ''
-assignees: its-sky
-
----
-
----
-name: 
-about: "기능 개발, 추가 관련 (Feature enhancement with modifying source code.)"
-title: "feat: "
-labels: ''
-assignees: '신민철'
+assignees: ''
 
 ---
 
