@@ -4,6 +4,7 @@ HELP.md
 .DS_Store
 application.yml
 gradle
+gradlew
 build/
 build/**
 src/main/generated/**
