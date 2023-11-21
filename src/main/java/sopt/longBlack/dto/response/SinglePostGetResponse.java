@@ -5,16 +5,15 @@ import java.util.List;
 import sopt.longBlack.domain.paragraph.Paragraph;
 import sopt.longBlack.domain.post.Post;
 
-public record SingePostGetResponse(Long id, String title, String writer, LocalDate createdDate, List<Paragraph> paragraphs) {
+public record SinglePostGetResponse(Long id, String title, String writer, LocalDate createdDate) {
 
-    public static SingePostGetResponse of(Post post, ) {
-        return new SingePostGetResponse(
+    public static SinglePostGetResponse of(Post post) {
+        return new SinglePostGetResponse(
                 post.getPostId(),
                 post.getTitle(),
                 post.getWriter(),
-                post.getCreatedDate(),
-
-        )
-    }
+                post.getCreatedDate()
+        );
+    };
 
 }
