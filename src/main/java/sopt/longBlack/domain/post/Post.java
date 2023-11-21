@@ -28,9 +28,6 @@ public class Post {
     private String title;
     private String hexacode;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Paragraph> paragraphs = new ArrayList<>();
-
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private Bookmark bookmark;
 
