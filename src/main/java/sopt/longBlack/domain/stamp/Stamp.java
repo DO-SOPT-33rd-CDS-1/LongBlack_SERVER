@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import sopt.longBlack.domain.post.Post;
 
@@ -22,4 +23,10 @@ public class Stamp {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @Builder
+    public Stamp(Long stampId, Post post) {
+        this.stampId = stampId;
+        this.post = post;
+    }
 }
