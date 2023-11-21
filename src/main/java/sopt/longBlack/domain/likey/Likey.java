@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import sopt.longBlack.domain.post.Post;
 
@@ -22,4 +23,10 @@ public class Likey {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @Builder
+    public Likey(Long likeyId, Post post) {
+        this.likeyId = likeyId;
+        this.post = post;
+    }
 }
