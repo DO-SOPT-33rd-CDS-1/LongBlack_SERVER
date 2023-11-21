@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -27,6 +29,9 @@ public class Post {
 
     private String title;
     private String hexacode;
+    private String writer;
+    private LocalDate createdDate;
+
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private Bookmark bookmark;
