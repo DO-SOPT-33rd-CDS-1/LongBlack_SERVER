@@ -6,6 +6,13 @@
 
 <br />
 
+## 💽 ERD
+
+![LongBlack](https://github.com/DO-SOPT-33rd-CDS-1/LongBlack_SERVER/assets/48898994/9fb5289d-6ef0-4201-a472-1b276e305b6b)
+
+
+<br />
+
 ## 🌳 Branch
 
 
