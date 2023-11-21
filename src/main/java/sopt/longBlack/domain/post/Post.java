@@ -31,14 +31,18 @@ public class Post {
     private String hexacode;
     private String writer;
     private LocalDate createdDate;
+    private PostType postType;
 
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private Bookmark bookmark;
 
     @Builder
-    public Post(String title, String hexacode) {
+    public Post(String title, String hexacode, String writer, LocalDate createdDate, PostType postType) {
         this.title = title;
         this.hexacode = hexacode;
+        this.writer = writer;
+        this.createdDate = createdDate;
+        this.postType = postType;
     }
 }
