@@ -8,7 +8,7 @@
 
 ## 💽 ERD
 
-![LongBlack](https://github.com/DO-SOPT-33rd-CDS-1/LongBlack_SERVER/assets/48898994/9fb5289d-6ef0-4201-a472-1b276e305b6b)
+<img width="1139" alt="스크린샷 2023-11-22 오후 12 33 37" src="https://github.com/DO-SOPT-33rd-CDS-1/LongBlack_SERVER/assets/48898994/3003bee5-0dad-49aa-a455-8f7fd17bed79">
 
 
 <br />
