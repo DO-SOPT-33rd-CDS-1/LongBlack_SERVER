@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AccessLevel;
@@ -19,7 +21,7 @@ import sopt.longBlack.domain.paragraph.Paragraph;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post {
+public class Post extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +29,20 @@ public class Post {
 
     private String title;
     private String hexacode;
+    private String writer;
+    private LocalDate createdDate;
+    private PostType postType;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Paragraph> paragraphs = new ArrayList<>();
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
     private Bookmark bookmark;
 
     @Builder
-    public Post(String title, String hexacode) {
+    public Post(String title, String hexacode, String writer, LocalDate createdDate, PostType postType) {
         this.title = title;
         this.hexacode = hexacode;
+        this.writer = writer;
+        this.createdDate = createdDate;
+        this.postType = postType;
     }
 }
