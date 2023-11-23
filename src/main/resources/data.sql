@@ -10,13 +10,13 @@ CREATE TABLE POST (
     hexacode       VARCHAR(50)     NOT NULL,
     writer         VARCHAR(255)    NOT NULL,
     created_date    DATE            NOT NULL,
-    post_type      ENUM('L','C','K','B')      NOT NULL
+    post_type      VARCHAR(1)      NOT NULL
 );
 
 CREATE TABLE PARAGRAPH (
     paragraph_id    BIGINT          NOT NULL   AUTO_INCREMENT  PRIMARY KEY,
     content         VARCHAR(255)    NOT NULL,
-    paragraph_type  ENUM('SUBHEADING','TEXT')    NOT NULL,
+    paragraph_type  VARCHAR(255)    NOT NULL,
     post_id         BIGINT,
     FOREIGN KEY (post_id) REFERENCES POST(post_id)
 );

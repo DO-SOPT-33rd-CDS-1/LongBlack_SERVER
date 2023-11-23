@@ -38,7 +38,6 @@ public class Post extends BaseTimeEntity {
     private LocalDate createdDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "post_type", length = 10)
     private PostType postType;
 
     @Builder
