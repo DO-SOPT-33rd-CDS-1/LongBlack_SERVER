@@ -1,6 +1,7 @@
 package sopt.longBlack.domain.post;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -32,14 +33,12 @@ public class Post extends BaseTimeEntity {
     private String title;
     private String hexacode;
     private String writer;
+
+    @Column(name = "created_date")
     private LocalDate createdDate;
 
     @Enumerated(EnumType.STRING)
     private PostType postType;
-
-
-    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL)
-    private Bookmark bookmark;
 
     @Builder
     public Post(String title, String hexacode, String writer, LocalDate createdDate, PostType postType) {

@@ -1,6 +1,10 @@
 package sopt.longBlack.domain.paragraph;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +26,9 @@ public class Paragraph {
     private Short paragraphId;
 
     private String content;
+
+    @Column(name = "paragraph_type")
+    @Enumerated(EnumType.STRING)
     private ParagraphType paragraphType;
 
     @ManyToOne(fetch = FetchType.LAZY)

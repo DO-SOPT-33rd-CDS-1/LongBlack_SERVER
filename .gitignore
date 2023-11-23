@@ -3,9 +3,6 @@ HELP.md
 .gradle/
 .DS_Store
 application.yml
-gradle
-gradlew
-gradlew.bat
 build/
 build/**
 src/main/generated/**
