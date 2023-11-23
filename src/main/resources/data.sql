@@ -9,14 +9,14 @@ CREATE TABLE POST (
     title          VARCHAR(255)    NOT NULL,
     hexacode       VARCHAR(50)     NOT NULL,
     writer         VARCHAR(255)    NOT NULL,
-    createdDate    DATE            NOT NULL,
-    post_type      VARCHAR(1)      NOT NULL
+    created_date    DATE            NOT NULL,
+    post_type      ENUM('L','C','K','B')      NOT NULL
 );
 
 CREATE TABLE PARAGRAPH (
     paragraph_id    BIGINT          NOT NULL   AUTO_INCREMENT  PRIMARY KEY,
     content         VARCHAR(255)    NOT NULL,
-    paragraph_type  VARCHAR(255)    NOT NULL,
+    paragraph_type  ENUM('SUBHEADING','TEXT')    NOT NULL,
     post_id         BIGINT,
     FOREIGN KEY (post_id) REFERENCES POST(post_id)
 );
@@ -43,7 +43,7 @@ CREATE TABLE STAMP (
 
 
 
-INSERT INTO POST (title, hexacode, writer, createdDate, post_type) VALUES
+INSERT INTO POST (title, hexacode, writer, created_date, post_type) VALUES
   ('오픈갤러리 : 내 거실이 갤러리, 미술 시장의 빈틈을 파고든 원화 구독 서비스', '#FF5126', '박희정', '2023-11-09', 'B'),
   ('무스토이 : OMG와 슈퍼해피 정신으로, 아마존 1위 장난감이 되다', '#A3F4A5', '방민지', '2023-02-15', 'L'),
   ('애시드 리그 : 커피·고수·김치맛 식초, 4000개의 슈퍼마켓 매대를 꿰차다', '#A4F4A3', '손명지', '2023-03-30', 'B'),
