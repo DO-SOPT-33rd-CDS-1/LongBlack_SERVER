@@ -55,19 +55,18 @@ public class PostService {
 
     public PostsGetResponse getPosts() {
         List<Long> likedPosts = likeyRepository.findAll().stream().map(
-                likey -> {
-                    return likey.getPost().getPostId();
-                }).toList();
+                likey -> likey.getPost().getPostId()
+        ).toList();
 
         return PostsGetResponse.of(
-                postRepository.findAll().stream().map(post -> {
-            return PostInfoResponse.of(
-                    post.getPostId(),
-                    post.getTitle(),
-                    post.getWriter(),
-                    post.getPostType(),
-                    post.getHexacode(),
-                    likedPosts.contains(post.getPostId()));
-                }).toList());
+                postRepository.findAll().stream().map(post ->
+                        PostInfoResponse.of(
+                                post.getPostId(),
+                                post.getTitle(),
+                                post.getWriter(),
+                                post.getPostType(),
+                                post.getHexacode(),
+                                likedPosts.contains(post.getPostId()))
+                ).toList());
     }
 }
