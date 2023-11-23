@@ -32,19 +32,20 @@ public class PostService {
     public SinglePostGetResponse getById(Long postId) {
         // post 정보 (postId, title, writer, createdDate, postType)
         Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
+
         // like, stamp의 존재 여부 확인
         Optional<Likey> like = likeyRepository.findLikeyByPost(post);
         Optional<Stamp> stamp = stampRepository.findStampByPost(post);
         boolean likeExists = like.isPresent();
         boolean stampExists = stamp.isPresent();
-        // bookmark 정보 확인
-//        Bookmark bookmark = bookmarkRepository.findByPost(post);
-//        Integer bookmarkIdx = null;
-//        if (bookmark != null ) {
-//            bookmarkIdx = bookmark.getBookmarkIdx();
-//        }
-        Optional<Bookmark> bookmarkOptional = bookmarkRepository.findByPost(post);
-        Integer bookmarkIdx = bookmarkOptional.map(Bookmark::getBookmarkIdx).orElse(null);
+
+        // Bookmark의 존재 여부 확인
+        Integer bookmarkIdx = -1;
+        Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByPost(post);
+        if (bookmark.isPresent()) {
+            bookmarkIdx = bookmark.get().getBookmarkIdx();
+        }
+
         // paragraph 정보 확인
         List<Paragraph> paragraphs = paragraphRepository.findAllByPost(post);
         return SinglePostGetResponse.of(post, likeExists, stampExists, bookmarkIdx, paragraphs);

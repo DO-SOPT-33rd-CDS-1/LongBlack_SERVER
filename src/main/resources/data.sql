@@ -41,8 +41,6 @@ CREATE TABLE STAMP (
 );
 
 
-
-
 INSERT INTO POST (title, hexacode, writer, created_date, post_type) VALUES
   ('오픈갤러리 : 내 거실이 갤러리, 미술 시장의 빈틈을 파고든 원화 구독 서비스', '#FF5126', '박희정', '2023-11-09', 'B'),
   ('무스토이 : OMG와 슈퍼해피 정신으로, 아마존 1위 장난감이 되다', '#A3F4A5', '방민지', '2023-02-15', 'L'),
