@@ -11,6 +11,8 @@ import sopt.longBlack.domain.likey.Likey;
 import sopt.longBlack.domain.paragraph.Paragraph;
 import sopt.longBlack.domain.post.Post;
 import sopt.longBlack.domain.stamp.Stamp;
+import sopt.longBlack.dto.response.PostInfoResponse;
+import sopt.longBlack.dto.response.PostsGetResponse;
 import sopt.longBlack.dto.response.SinglePostGetResponse;
 import sopt.longBlack.infrastructure.BookmarkRepository;
 import sopt.longBlack.infrastructure.LikeyRepository;
@@ -51,5 +53,21 @@ public class PostService {
         return SinglePostGetResponse.of(post, likeExists, stampExists, bookmarkIdx, paragraphs);
     }
 
+    public PostsGetResponse getPosts() {
+        List<Long> likedPosts = likeyRepository.findAll().stream().map(
+                likey -> {
+                    return likey.getPost().getPostId();
+                }).toList();
 
+        return PostsGetResponse.of(
+                postRepository.findAll().stream().map(post -> {
+            return PostInfoResponse.of(
+                    post.getPostId(),
+                    post.getTitle(),
+                    post.getWriter(),
+                    post.getPostType(),
+                    post.getHexacode(),
+                    likedPosts.contains(post.getPostId()));
+                }).toList());
+    }
 }
