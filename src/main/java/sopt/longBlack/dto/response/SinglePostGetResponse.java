@@ -2,11 +2,12 @@ package sopt.longBlack.dto.response;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 import sopt.longBlack.domain.paragraph.Paragraph;
 import sopt.longBlack.domain.post.Post;
 import sopt.longBlack.domain.post.PostType;
 
-public record SinglePostGetResponse(Long id,
+public record SinglePostGetResponse(Long postId,
                                     String title,
                                     String writer,
                                     LocalDate createdDate,
@@ -14,10 +15,13 @@ public record SinglePostGetResponse(Long id,
                                     boolean like,
                                     boolean stamp,
                                     Integer bookmarkIdx,
-                                    List<Paragraph> paragraphs
+                                    List<ParagraphGetResponse> paragraphs
 ) {
 
     public static SinglePostGetResponse of(Post post, boolean like, boolean stamp, Integer bookmarkIdx, List<Paragraph> paragraphs) {
+        List<ParagraphGetResponse> paragraphResponses = paragraphs.stream()
+                .map(paragraph -> ParagraphGetResponse.of(paragraph))
+                .collect(Collectors.toList());
         return new SinglePostGetResponse(
                 post.getPostId(),
                 post.getTitle(),
@@ -27,7 +31,7 @@ public record SinglePostGetResponse(Long id,
                 like,
                 stamp,
                 bookmarkIdx,
-                paragraphs
+                paragraphResponses
         );
     };
 
