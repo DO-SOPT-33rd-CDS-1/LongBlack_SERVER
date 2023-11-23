@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import sopt.longBlack.domain.likey.Likey;
 import sopt.longBlack.domain.post.Post;
 import sopt.longBlack.dto.request.LikeyRequest;
@@ -11,6 +12,7 @@ import sopt.longBlack.infrastructure.LikeyRepository;
 import sopt.longBlack.infrastructure.PostRepository;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class LikeyService {
 
