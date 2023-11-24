@@ -1,6 +1,7 @@
 package sopt.longBlack.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,5 +30,15 @@ public class BookmarkService {
 
         return bookmark.getBookmarkId().toString();
 
+    }
+
+    @Transactional
+    public void deleteBookmark(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
+
+        Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByPost(post);
+        if (bookmark.isPresent()) {
+            bookmarkRepository.delete(bookmark.get());
+        }
     }
 }
