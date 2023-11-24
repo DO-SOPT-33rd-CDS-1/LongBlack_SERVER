@@ -30,4 +30,10 @@ public class Bookmark {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @Builder
+    public Bookmark(int bookmarkIdx, Post post) {
+        this.bookmarkIdx = bookmarkIdx;
+        this.post = post;
+    }
+
 }
