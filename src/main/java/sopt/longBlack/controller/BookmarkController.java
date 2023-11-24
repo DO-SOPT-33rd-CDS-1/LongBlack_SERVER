@@ -17,9 +17,11 @@ import sopt.longBlack.service.BookmarkService;
 import sopt.longBlack.service.PostService;
 
 @RestController
-@RequestMapping("/api/bookmark")
+@RequestMapping(BookmarkController.BASE_PATH)
 @RequiredArgsConstructor
 public class BookmarkController {
+
+    static final String BASE_PATH = "/api/bookmark";
 
     private final BookmarkService bookmarkService;
 
@@ -27,7 +29,7 @@ public class BookmarkController {
     public ResponseEntity<Void> postBookmarkById(@PathVariable Long postId,
                                              @RequestBody BookmarkRequest request) {
 
-        URI location = URI.create("/api/bookmark/" + bookmarkService.postBookMark(request, postId));
+        URI location = URI.create(BASE_PATH + "/" + bookmarkService.postBookMark(request, postId));
         return ResponseEntity.created(location).build();
     }
 
