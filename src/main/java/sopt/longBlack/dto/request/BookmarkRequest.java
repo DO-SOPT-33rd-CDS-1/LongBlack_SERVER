@@ -1,2 +1,4 @@
-package sopt.longBlack.dto.request;public record BookmarkRequest() {
+package sopt.longBlack.dto.request;
+
+public record BookmarkRequest(int bookmarkIdx) {
 }
