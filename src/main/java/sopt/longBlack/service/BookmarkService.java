@@ -25,7 +25,6 @@ public class BookmarkService {
     public String postBookMark(BookmarkRequest request, Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorType.NOT_FOUND_POST_ERROR.getMessage()));
 
-        // 해당 postId에 대한 Bookmark가 이미 존재하는지 확인
         if (bookmarkRepository.existsByPost(post)) {
             throw new EntityExistsException(ErrorType.BOOKMARK_EXISTS_ALREADY.getMessage());
         }
