@@ -1,5 +1,7 @@
 package sopt.longBlack.exception;
 
+import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +24,20 @@ public class GlobalExceptionHandler {
      */
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RuntimeException.class)
-    protected ErrorResponse<?> handlePostNotFoundException(final RuntimeException e, final HttpServletRequest request) throws IOException {
+    protected ErrorResponse<?> handlePostNotFoundException(final EntityNotFoundException e, final HttpServletRequest request) throws IOException {
         log.error("404 error occurred: {}", e.getMessage(), e);
         return ErrorResponse.error(ErrorType.NOT_FOUND_POST_ERROR);
+    }
+
+
+    /**
+     * 409 CONFLICT
+     */
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(EntityExistsException.class)
+    protected ErrorResponse<?> handleEntityExistsException(final EntityExistsException e, final HttpServletRequest request) throws IOException {
+        log.error("409 error occurred: {}", e.getMessage(), e);
+        return ErrorResponse.error(ErrorType.BOOKMARK_EXISTS_ALREADY);
     }
 
     /**

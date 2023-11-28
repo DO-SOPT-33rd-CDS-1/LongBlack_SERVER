@@ -14,6 +14,7 @@ import sopt.longBlack.domain.stamp.Stamp;
 import sopt.longBlack.dto.response.PostInfoResponse;
 import sopt.longBlack.dto.response.PostsGetResponse;
 import sopt.longBlack.dto.response.SinglePostGetResponse;
+import sopt.longBlack.exception.ErrorType;
 import sopt.longBlack.infrastructure.BookmarkRepository;
 import sopt.longBlack.infrastructure.LikeyRepository;
 import sopt.longBlack.infrastructure.ParagraphRepository;
@@ -33,7 +34,7 @@ public class PostService {
 
     public SinglePostGetResponse getById(Long postId) {
         // post 정보 (postId, title, writer, createdDate, postType)
-        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorType.NOT_FOUND_POST_ERROR.getMessage()));
 
         // like, stamp의 존재 여부 확인
         Optional<Likey> like = likeyRepository.findLikeyByPost(post);

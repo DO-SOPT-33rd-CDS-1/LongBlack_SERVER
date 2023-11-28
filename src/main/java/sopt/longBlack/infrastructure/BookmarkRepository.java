@@ -7,4 +7,5 @@ import sopt.longBlack.domain.post.Post;
 
 public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     Optional<Bookmark> findBookmarkByPost(Post post);
+    boolean existsByPost(Post post);
 }
