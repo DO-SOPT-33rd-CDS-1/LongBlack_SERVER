@@ -40,11 +40,13 @@ public class BookmarkService {
 
     @Transactional
     public void deleteBookmark(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorType.NOT_FOUND_POST_ERROR.getMessage()));
 
         Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByPost(post);
         if (bookmark.isPresent()) {
             bookmarkRepository.delete(bookmark.get());
+        } else {
+            throw new EntityNotFoundException(ErrorType.NOT_FOUND_BOOKMARK_IN_POST.getMessage());
         }
     }
 }

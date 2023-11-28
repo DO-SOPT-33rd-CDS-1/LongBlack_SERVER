@@ -26,7 +26,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     protected ErrorResponse<?> handlePostNotFoundException(final EntityNotFoundException e, final HttpServletRequest request) throws IOException {
         log.error("404 error occurred: {}", e.getMessage(), e);
-        return ErrorResponse.error(ErrorType.NOT_FOUND_POST_ERROR);
+
+        if (e.getMessage().contains("책갈피")) {
+            return ErrorResponse.error(ErrorType.NOT_FOUND_BOOKMARK_IN_POST);
+        } else {
+            return ErrorResponse.error(ErrorType.NOT_FOUND_POST_ERROR);
+        }
     }
 
 

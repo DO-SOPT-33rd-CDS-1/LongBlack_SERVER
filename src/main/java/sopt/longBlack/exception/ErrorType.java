@@ -13,6 +13,7 @@ public enum ErrorType {
     404 NOT FOUND
      */
     NOT_FOUND_POST_ERROR(HttpStatus.NOT_FOUND, "존재하지 않는 포스트입니다."),
+    NOT_FOUND_BOOKMARK_IN_POST(HttpStatus.NOT_FOUND, "해당 포스트에 책갈피가 존재하지 않습니다."),
 
     /*
     409 CONFLICT
