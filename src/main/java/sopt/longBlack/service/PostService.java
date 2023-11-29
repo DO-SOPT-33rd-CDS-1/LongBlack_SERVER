@@ -14,6 +14,7 @@ import sopt.longBlack.domain.stamp.Stamp;
 import sopt.longBlack.dto.response.PostInfoResponse;
 import sopt.longBlack.dto.response.PostsGetResponse;
 import sopt.longBlack.dto.response.SinglePostGetResponse;
+import sopt.longBlack.exception.ErrorType;
 import sopt.longBlack.infrastructure.BookmarkRepository;
 import sopt.longBlack.infrastructure.LikeyRepository;
 import sopt.longBlack.infrastructure.ParagraphRepository;
@@ -32,23 +33,20 @@ public class PostService {
     private final ParagraphRepository paragraphRepository;
 
     public SinglePostGetResponse getById(Long postId) {
-        // post 정보 (postId, title, writer, createdDate, postType)
-        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
 
-        // like, stamp의 존재 여부 확인
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorType.NOT_FOUND_POST_ERROR.getMessage()));
+
         Optional<Likey> like = likeyRepository.findLikeyByPost(post);
         Optional<Stamp> stamp = stampRepository.findStampByPost(post);
         boolean likeExists = like.isPresent();
         boolean stampExists = stamp.isPresent();
 
-        // Bookmark의 존재 여부 확인
         Integer bookmarkIdx = -1;
         Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByPost(post);
         if (bookmark.isPresent()) {
             bookmarkIdx = bookmark.get().getBookmarkIdx();
         }
 
-        // paragraph 정보 확인
         List<Paragraph> paragraphs = paragraphRepository.findAllByPost(post);
         return SinglePostGetResponse.of(post, likeExists, stampExists, bookmarkIdx, paragraphs);
     }

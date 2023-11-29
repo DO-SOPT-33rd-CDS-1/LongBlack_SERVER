@@ -1,5 +1,6 @@
 package sopt.longBlack.service;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sopt.longBlack.domain.bookmark.Bookmark;
 import sopt.longBlack.domain.post.Post;
 import sopt.longBlack.dto.request.BookmarkRequest;
+import sopt.longBlack.exception.ErrorType;
 import sopt.longBlack.infrastructure.BookmarkRepository;
 import sopt.longBlack.infrastructure.PostRepository;
 
@@ -21,7 +23,11 @@ public class BookmarkService {
 
     @Transactional
     public String postBookMark(BookmarkRequest request, Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorType.NOT_FOUND_POST_ERROR.getMessage()));
+
+        if (bookmarkRepository.existsByPost(post)) {
+            throw new EntityExistsException(ErrorType.BOOKMARK_EXISTS_ALREADY.getMessage());
+        }
 
         Bookmark bookmark = bookmarkRepository.save(
                 Bookmark.builder()
@@ -34,11 +40,13 @@ public class BookmarkService {
 
     @Transactional
     public void deleteBookmark(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException("해당하는 포스트가 없습니다."));
+        Post post = postRepository.findById(postId).orElseThrow(() -> new EntityNotFoundException(ErrorType.NOT_FOUND_POST_ERROR.getMessage()));
 
         Optional<Bookmark> bookmark = bookmarkRepository.findBookmarkByPost(post);
         if (bookmark.isPresent()) {
             bookmarkRepository.delete(bookmark.get());
+        } else {
+            throw new EntityNotFoundException(ErrorType.NOT_FOUND_BOOKMARK_IN_POST.getMessage());
         }
     }
 }
